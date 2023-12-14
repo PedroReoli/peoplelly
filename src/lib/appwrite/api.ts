@@ -83,4 +83,12 @@ export async function createUserAccount(user: INewUser) {
       return null;
     }
   }
-  
+  export async function signOutAccount() {
+    try {
+      const session = await account.deleteSession("current");
+     
+      return session;
+    } catch (error) {
+      console.log(error);
+    }
+  }
