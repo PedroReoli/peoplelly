@@ -11,7 +11,6 @@ const RootLayout = () => {
       
       <Topbar />
       <LeftSidebar />
-Root
 
       <section className="flex flex-1 h-full">
         <Outlet />
