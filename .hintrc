@@ -4,6 +4,12 @@
   ],
   "hints": {
     "typescript-config/is-valid": "off",
-    "disown-opener": "off"
+    "disown-opener": "off",
+    "axe/structure": [
+      "default",
+      {
+        "list": "off"
+      }
+    ]
   }
 }
