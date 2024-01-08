@@ -32,3 +32,16 @@ export const PostValidation = z.object({
   location: z.string().min(1, { message: "This field is required" }).max(1000, { message: "Maximum 1000 characters." }),
   tags: z.string(),
 });
+
+// ============================================================
+// EVENT
+// ============================================================
+
+export const EventValidation = z.object({
+  title: z.string().min(2, { message: "O titulo precisa ter no minimo 2 caracteres" }),
+  description: z.string().min(5, { message: "No minimo 5 caracteres" }),
+  date: z.string().min(1, { message: "Campo Obrigatório" }),
+  location: z.string().min(1, { message: "Campo Obrigatório" }),
+  users: z.string(), 
+  package: z.string(), 
+});

@@ -25,8 +25,11 @@ import {
   searchPosts,
   savePost,
   deleteSavedPost,
+  getEvents,
+  createEvent,
 } from "@/lib/appwrite/api";
-import { INewPost, INewUser, IUpdatePost, IUpdateUser } from "@/types";
+import { INewEvent, INewPost, INewUser, IUpdatePost, IUpdateUser } from "@/types";
+
 
 // ============================================================
 // AUTH QUERIES
@@ -240,6 +243,28 @@ export const useUpdateUser = () => {
       });
       queryClient.invalidateQueries({
         queryKey: [QUERY_KEYS.GET_USER_BY_ID, data?.$id],
+      });
+    },
+  });
+};
+
+// ============================================================
+// EVENT QUERIES
+// ============================================================
+
+export const useGetEvents = () => {
+  return useQuery({
+    queryKey: [QUERY_KEYS.GET_EVENTS],
+    queryFn: getEvents,
+  });
+};
+export const useCreateEvent = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: (event: INewEvent) => createEvent(event),
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: [QUERY_KEYS.GET_EVENTS],
       });
     },
   });

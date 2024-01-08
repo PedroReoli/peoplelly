@@ -17,4 +17,8 @@ export enum QUERY_KEYS {
 
   //  SEARCH KEYS
   SEARCH_POSTS = "getSearchPosts",
+
+
+//EVENT KEYS
+GET_EVENTS = "getEvents",
 }

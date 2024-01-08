@@ -46,3 +46,22 @@ export type INewUser = {
   username: string;
   password: string;
 };
+export type INewEvent = {
+  userId: string;
+  title: string;
+  description: string;
+  date: Date;
+  location: string;
+  participants: string[]; // Você pode ajustar o tipo conforme necessário
+  // Adicione outros atributos do evento conforme necessário
+};
+
+export type IUpdateEvent = {
+  eventId: string;
+  title: string;
+  description: string;
+  date: Date;
+  location: string;
+  participants: string[]; // Você pode ajustar o tipo conforme necessário
+  // Atualize outros atributos do evento conforme necessário
+};
