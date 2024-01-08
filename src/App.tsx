@@ -10,6 +10,7 @@ import {
   EditPost,
   PostDetails,
 } from "@/_root/pages";
+import Events from "./_root/pages/Events";
 
 // Routes Imports
 import SigninForm from './_auth/forms/SigninForm'
@@ -37,6 +38,7 @@ const App = () => {
               <Route path="/saved" element={<Saved />} />
               <Route path="/all-users" element={<AllUsers />} />
               <Route path="/create-post" element={<CreatePost />} />
+              <Route path="/events" element={<Events />} />
               <Route path="/update-post/:id" element={<EditPost />} />
               <Route path="/posts/:id" element={<PostDetails />} />
               <Route path="/profile/:id/*" element={<Profile />} />
