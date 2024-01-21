@@ -52,8 +52,7 @@ export type INewEvent = {
   description: string;
   date: Date;
   location: string;
-  participants: string[]; // Você pode ajustar o tipo conforme necessário
-  // Adicione outros atributos do evento conforme necessário
+ 
 };
 
 export type IUpdateEvent = {

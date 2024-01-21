@@ -15,7 +15,7 @@ import CreateEvent from "./_root/pages/CreateEvent";
 // Routes Imports
 import SigninForm from './_auth/forms/SigninForm'
 import SignupForm from './_auth/forms/SignupForm'
-import { Routes,Route } from 'react-router-dom';
+import { Routes,Route } from 'react-router-dom';  
 import AuthLayout from './_auth/AuthLayout'
 import RootLayout from './_root/RootLayout' 
 import { Toaster } from "@/components/ui/toaster";
@@ -44,7 +44,7 @@ const App = () => {
               <Route path="/posts/:id" element={<PostDetails />} />
               <Route path="/profile/:id/*" element={<Profile />} />
               <Route path="/update-profile/:id" element={<UpdateProfile />} />
-        </Route>
+            </Route>
         </Routes>
 
       <Toaster/>
