@@ -25,11 +25,11 @@ import {
   searchPosts,
   savePost,
   deleteSavedPost,
-  getEvents,
-  createEvent,
+  // getEvents,
+  // createEvent,
 } from "@/lib/appwrite/api";
-import { INewEvent, INewPost, INewUser, IUpdatePost, IUpdateUser } from "@/types";
-
+import {  INewPost, INewUser, IUpdatePost, IUpdateUser } from "@/types";
+// import {INewEvent }  from "@/types";
 
 // ============================================================
 // AUTH QUERIES
@@ -252,20 +252,20 @@ export const useUpdateUser = () => {
 // EVENT QUERIES
 // ============================================================
 
-export const useGetEvents = () => {
-  return useQuery({
-    queryKey: [QUERY_KEYS.GET_EVENTS],
-    queryFn: getEvents,
-  });
-};
-export const useCreateEvent = () => {
-  const queryClient = useQueryClient();
-  return useMutation({
-    mutationFn: (event: INewEvent) => createEvent(event),
-    onSuccess: () => {
-      queryClient.invalidateQueries({
-        queryKey: [QUERY_KEYS.GET_EVENTS],
-      });
-    },
-  });
-};
+// export const useGetEvents = () => {
+//   return useQuery({
+//     queryKey: [QUERY_KEYS.GET_EVENTS],
+//     queryFn: getEvents,
+//   });
+// };
+// export const useCreateEvent = () => {
+//   const queryClient = useQueryClient();
+//   return useMutation({
+//     mutationFn: (event: INewEvent) => createEvent(event),
+//     onSuccess: () => {
+//       queryClient.invalidateQueries({
+//         queryKey: [QUERY_KEYS.GET_EVENTS],
+//       });
+//     },
+//   });
+// };

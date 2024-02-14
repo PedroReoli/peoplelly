@@ -24,11 +24,11 @@ export const sidebarLinks = [
       route: "/create-post",
       label: "Postar",
     },
-    {
-      imgURL: "/assets/icons/month-events.svg",
-      route: "/events",
-      label: "Eventos do Mês",
-    },
+    // {
+    //   imgURL: "/assets/icons/month-events.svg",
+    //   route: "/events",
+    //   label: "Eventos do Mês",
+    // },
   
   ];
   
@@ -58,11 +58,11 @@ export const sidebarLinks = [
       route: "/create-post",
       label: "Postar",
     },
-    {
-      imgURL: "/assets/icons/month-events.svg",
-      route: "/events",
-      label: "Eventos do Mês",
-    },
+    // {
+    //   imgURL: "/assets/icons/month-events.svg",
+    //   route: "/events",
+    //   label: "Eventos do Mês",
+    // },
   
   ];
   
