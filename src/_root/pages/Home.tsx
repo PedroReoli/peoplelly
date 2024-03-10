@@ -1,4 +1,6 @@
 import { Models } from "appwrite";
+import { useState } from 'react';
+import { Input } from "@/components/ui/input";
 
 // import { useToast } from "@/components/ui/use-toast";
 import { Loader } from "@/components/shared";
@@ -6,9 +8,11 @@ import  PostCard  from "@/components/shared/PostCard";
 import  UserCard from "@/components/shared/UserCard";
 import { useGetRecentPosts, useGetUsers } from "@/lib/react-query/queries";
 
+
 const Home = () => {
   // const { toast } = useToast();
 
+  
   const {
     data: posts,
     isLoading: isPostLoading,
@@ -19,7 +23,13 @@ const Home = () => {
     isLoading: isUserLoading,
     isError: isErrorCreators,
   } = useGetUsers(10);
+  
+  const [termoDePesquisa, setTermoDePesquisa] = useState('');
 
+  const criadoresFiltrados = creators?.documents.filter((creator) =>
+    (creator.username?.toLowerCase().includes(termoDePesquisa.toLowerCase()) ||
+    creator.name?.toLowerCase().includes(termoDePesquisa.toLowerCase()))
+  ) || [];
   if (isErrorPosts || isErrorCreators) {
     return (
       <div className="flex flex-1">
@@ -53,12 +63,28 @@ const Home = () => {
       </div>
 
       <div className="home-creators">
-        <h3 className="h3-bold text-light-1">Peoples do Mês</h3>
+          <h3 className="h3-bold text-light-1">Peoples do Mês</h3>
+        <div className="flex gap-1 px-4 w-full rounded-lg bg-dark-4">
+          <img
+            width={24}
+            src="/assets/icons/search.svg"
+            height={24}
+            alt="search"
+          />
+          <Input
+            type="text"
+            placeholder="Pesquisar usuário"
+            className="explore-search"
+            value={termoDePesquisa}
+            onChange={(event) => setTermoDePesquisa(event.target.value)}
+          />
+        </div>
         {isUserLoading && !creators ? (
           <Loader />
+          
         ) : (
           <ul className="grid 2xl:grid-cols-2 gap-6">
-            {creators?.documents.map((creator) => (
+            {criadoresFiltrados.map((creator) => (
               <li key={creator?.$id}>
                 <UserCard user={creator} />
               </li>
