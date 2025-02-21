@@ -6,7 +6,6 @@ import { IUpdatePost, INewPost, INewUser, IUpdateUser } from "@/types";
 // ============================================================
 // AUTH
 // ============================================================
-
 // ============================== SIGN UP
 export async function createUserAccount(user: INewUser) {
   try {
@@ -17,7 +16,7 @@ export async function createUserAccount(user: INewUser) {
       user.name
     );
 
-    if (!newAccount) throw Error;
+    if (!newAccount) throw new Error("Falha ao criar conta");
 
     const avatarUrl = avatars.getInitials(user.name);
 
@@ -31,8 +30,8 @@ export async function createUserAccount(user: INewUser) {
 
     return newUser;
   } catch (error) {
-    console.log(error);
-    return error;
+    console.error("Erro ao criar conta:", error);
+    return null;
   }
 }
 
@@ -54,7 +53,8 @@ export async function saveUserToDB(user: {
 
     return newUser;
   } catch (error) {
-    console.log(error);
+    console.error("Erro ao salvar usuário no banco de dados:", error);
+    return null;
   }
 }
 
@@ -62,10 +62,11 @@ export async function saveUserToDB(user: {
 export async function signInAccount(user: { email: string; password: string }) {
   try {
     const session = await account.createEmailSession(user.email, user.password);
-
+    console.log("Usuário autenticado com sucesso:", session);
     return session;
   } catch (error) {
-    console.log(error);
+    console.error("Erro ao fazer login:", error);
+    return null;
   }
 }
 
@@ -73,10 +74,10 @@ export async function signInAccount(user: { email: string; password: string }) {
 export async function getAccount() {
   try {
     const currentAccount = await account.get();
-
     return currentAccount;
   } catch (error) {
-    console.log(error);
+    console.warn("Usuário não autenticado ou sessão expirada.", error);
+    return null;
   }
 }
 
@@ -85,7 +86,10 @@ export async function getCurrentUser() {
   try {
     const currentAccount = await getAccount();
 
-    if (!currentAccount) throw Error;
+    if (!currentAccount) {
+      console.warn("Usuário não autenticado. Redirecionando para login...");
+      return null;
+    }
 
     const currentUser = await databases.listDocuments(
       appwriteConfig.databaseId,
@@ -93,11 +97,14 @@ export async function getCurrentUser() {
       [Query.equal("accountId", currentAccount.$id)]
     );
 
-    if (!currentUser) throw Error;
+    if (!currentUser || currentUser.documents.length === 0) {
+      console.warn("Nenhum usuário encontrado no banco de dados.");
+      return null;
+    }
 
     return currentUser.documents[0];
   } catch (error) {
-    console.log(error);
+    console.error("Erro ao buscar usuário:", error);
     return null;
   }
 }
@@ -106,10 +113,11 @@ export async function getCurrentUser() {
 export async function signOutAccount() {
   try {
     const session = await account.deleteSession("current");
-
+    console.log("Usuário deslogado com sucesso.");
     return session;
   } catch (error) {
-    console.log(error);
+    console.error("Erro ao deslogar:", error);
+    return null;
   }
 }
 

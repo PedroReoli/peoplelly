@@ -1,96 +1,108 @@
-import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
-
-import { INavLink } from "@/types";
-import { sidebarLinks } from "@/constants";
-import { Button } from "@/components/ui/button";
-import { useSignOutAccount } from "@/lib/react-query/queries";
-import { useUserContext, INITIAL_USER } from "@/context/AuthContext";
-import Loader from "./Loader";
+import { Link, NavLink, useLocation, useNavigate } from "react-router-dom"
+import { SignOut } from "@phosphor-icons/react"
+import { Button } from "@/components/ui/button"
+import { useSignOutAccount } from "@/lib/react-query/queries"
+import { useUserContext, INITIAL_USER } from "@/context/AuthContext"
+import { sidebarLinks } from "@/constants"
+import Loader from "./Loader"
 
 const LeftSidebar = () => {
-  const navigate = useNavigate();
-  const { pathname } = useLocation();
-  const { user, setUser, setIsAuthenticated, isLoading } = useUserContext();
+  const navigate = useNavigate()
+  const { pathname } = useLocation()
+  const { user, setUser, setIsAuthenticated, isLoading } = useUserContext()
+  const { mutate: signOut } = useSignOutAccount()
 
-  const { mutate: signOut } = useSignOutAccount();
-
-  const handleSignOut = async (
-    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
-  ) => {
-    e.preventDefault();
-    signOut();
-    setIsAuthenticated(false);
-    setUser(INITIAL_USER);
-    navigate("/sign-in");
-  };
+  const handleSignOut = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    e.preventDefault()
+    signOut()
+    setIsAuthenticated(false)
+    setUser(INITIAL_USER)
+    navigate("/sign-in")
+  }
 
   return (
     <nav className="leftsidebar">
-      <div className="flex flex-col gap-11">
-        <Link to="/" className="flex gap-3 items-center">
-          <img
-          src="/assets/icons/logo-form.svg"
-            alt="logo"
-            width={250}
-            height={36}
-          />
-        </Link>
+      <div className="flex-1">
+        {/* Logo com Card */}
+        <div className="mx-6 mt-6 mb-8">
+          <div className="rounded-2xl bg-dark-3 p-4 shadow-soft-blue">
+            <Link to="/" className="flex items-center justify-center">
+              <img
+                src="/assets/icons/logo-form.svg"
+                alt="logo"
+                width={180}
+                height={40}
+                className="object-contain"
+              />
+            </Link>
+          </div>
+        </div>
 
-        {isLoading || !user.email ? (
-          <div className="h-14">
+        {/* Perfil Card */}
+        {isLoading ? (
+          <div className="px-8 py-6">
             <Loader />
           </div>
         ) : (
-          <Link to={`/profile/${user.id}`} className="flex gap-3 items-center">
+          <Link
+            to={`/profile/${user.id}`}
+            className="mx-6 mb-10 flex items-center gap-4 rounded-2xl bg-dark-3 p-5 transition-all hover:shadow-soft-blue"
+          >
             <img
               src={user.imageUrl || "/assets/icons/profile-placeholder.svg"}
               alt="profile"
-              className="h-14 w-14 rounded-full"
+              className="h-14 w-14 rounded-full object-cover"
             />
-            <div className="flex flex-col">
-              <p className="body-bold">{user.name}</p>
-              <p className="small-regular text-light-3">@{user.username}</p>
+            <div className="flex-1">
+              <p className="h3-bold text-light-1">{user.name}</p>
+              <p className="base-regular text-light-3">@{user.username}</p>
             </div>
           </Link>
         )}
 
-        <ul className="flex flex-col gap-6">
-          {sidebarLinks.map((link: INavLink) => {
-            const isActive = pathname === link.route;
+        {/* Navigation Links */}
+        <ul className="px-6">
+          {sidebarLinks.map((link) => {
+            const isActive = pathname === link.route
+            const Icon = link.icon
 
             return (
-              <li
-                key={link.label}
-                className={`leftsidebar-link group ${
-                  isActive && "bg-primary-500"
-                }`}>
+              <li key={link.label} className="mb-4">
                 <NavLink
                   to={link.route}
-                  className="flex gap-4 items-center p-4">
-                  <img
-                    src={link.imgURL}
-                    alt={link.label}
-                    className={`group-hover:invert-white ${
-                      isActive && "invert-white"
-                    }`}
+                  className={`flex items-center gap-4 rounded-xl p-5 transition-all ${
+                    isActive 
+                      ? "bg-primary-500 text-light-1 shadow-soft-blue" 
+                      : "text-light-1 hover:bg-dark-3"
+                  }`}
+                >
+                  <Icon 
+                    size={26} 
+                    weight={isActive ? "fill" : "regular"} 
+                    className={isActive ? "text-light-1" : "text-primary-500"}
                   />
-                  {link.label}
+                  <span className="h3-bold">{link.label}</span>
                 </NavLink>
               </li>
-            );
+            )
           })}
         </ul>
       </div>
 
+      {/* Logout Button */}
       <Button
         variant="ghost"
-        className="shad-button_ghost"
-        onClick={(e) => handleSignOut(e)}>
-        <img src="/assets/icons/logout.svg" alt="logout" />
-        <p className="small-medium lg:base-medium">Logout</p>
+        onClick={handleSignOut}
+        className="mx-6 mb-8 flex items-center gap-4 rounded-xl p-5 hover:bg-red-500/10"
+      >
+        <SignOut 
+          size={26} 
+          className="text-primary-500"
+        />
+        <span className="h3-bold text-light-1">Sair</span>
       </Button>
     </nav>
-  );
-};
+  )
+}
 
-export default LeftSidebar;
+export default LeftSidebar

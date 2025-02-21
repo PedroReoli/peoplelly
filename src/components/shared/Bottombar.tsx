@@ -1,35 +1,45 @@
-import { Link, useLocation } from "react-router-dom";
-
-import { bottombarLinks } from "@/constants";
+import { Link, useLocation } from "react-router-dom"
+import { sidebarLinks } from "@/constants"
 
 const Bottombar = () => {
-  const { pathname } = useLocation();
+  const { pathname } = useLocation()
 
   return (
-    <section className="bottom-bar">
-      {bottombarLinks.map((link) => {
-        const isActive = pathname === link.route;
-        return (
-          <Link
-            key={`bottombar-${link.label}`}
-            to={link.route}
-            className={`${
-              isActive && "rounded-[10px] bg-primary-500 "
-            } flex-center flex-col gap-1 p-2 transition`}>
-            <img
-              src={link.imgURL}
-              alt={link.label}
-              width={16}
-              height={16}
-              className={`${isActive && "invert-white"}`}
-            />
+    <nav className="fixed bottom-0 z-50 w-full md:hidden bg-dark-2 border-t border-dark-4">
+      <div className="flex items-center justify-between px-4 py-3 max-w-[520px] mx-auto">
+        {sidebarLinks.map((link) => {
+          const isActive = pathname === link.route
+          const Icon = link.icon
 
-            <p className="tiny-medium text-light-2">{link.label}</p>
-          </Link>
-        );
-      })}
-    </section>
-  );
-};
+          return (
+            <Link
+              key={link.label}
+              to={link.route}
+              className="flex flex-col items-center gap-1"
+            >
+              <div className={`p-2 rounded-xl transition-all ${
+                isActive 
+                  ? "bg-primary-500 text-light-1" 
+                  : "text-light-2 hover:bg-primary-500/10"
+              }`}>
+                <Icon 
+                  size={24} 
+                  weight={isActive ? "fill" : "regular"} 
+                />
+              </div>
+              <span className={`text-[11px] ${
+                isActive 
+                  ? "text-primary-500 font-bold" 
+                  : "text-light-2"
+              }`}>
+                {link.label}
+              </span>
+            </Link>
+          )
+        })}
+      </div>
+    </nav>
+  )
+}
 
-export default Bottombar;
+export default Bottombar
