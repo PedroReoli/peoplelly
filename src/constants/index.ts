@@ -15,7 +15,7 @@ export const sidebarLinks = [
   {
     icon: UsersThree,
     route: "/all-users",
-    label: "Usuários",
+    label: "Comunidade",
   },
   {
     icon: Image,
