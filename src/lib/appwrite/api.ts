@@ -292,6 +292,53 @@ export async function getPostById(postId?: string) {
     console.log(error);
   }
 }
+// ============================== GET POSTS IN FILTER 
+// Adicione esta função junto com suas outras funções de API
+export async function getPostsByFilter(filter: string = 'todos') {
+  try {
+    let posts;
+    
+    if (filter === 'maisCurtidos') {
+      posts = await databases.listDocuments(
+        appwriteConfig.databaseId,
+        appwriteConfig.postCollectionId,
+        [
+          Query.orderDesc('$createdAt'),
+          Query.limit(20),
+        ]
+      )
+      
+      // Ordenar posts por número de curtidas
+      return {
+        ...posts,
+        documents: posts.documents.sort((a, b) => 
+          (b.likes?.length || 0) - (a.likes?.length || 0)
+        )
+      }
+    } else if (filter === 'recentes') {
+      posts = await databases.listDocuments(
+        appwriteConfig.databaseId,
+        appwriteConfig.postCollectionId,
+        [
+          Query.orderDesc('$createdAt'),
+          Query.limit(20),
+        ]
+      )
+    } else {
+      // 'todos' - mantém a ordenação padrão
+      posts = await databases.listDocuments(
+        appwriteConfig.databaseId,
+        appwriteConfig.postCollectionId,
+        [Query.limit(20)]
+      )
+    }
+
+    return posts
+  } catch (error) {
+    console.error(error)
+    return null
+  }
+}
 
 // ============================== UPDATE POST
 export async function updatePost(post: IUpdatePost) {
@@ -571,5 +618,6 @@ export async function updateUser(user: IUpdateUser) {
   } catch (error) {
     console.log(error);
   }
+////////////////////////////////
 
 }
