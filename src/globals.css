@@ -28,6 +28,33 @@
 }
 
 @layer components {
+
+  /* AUTH STYLES*/
+  .auth-container {
+    @apply flex-center min-h-screen w-full bg-dark-1 p-6 sm:p-10;
+  }
+  
+  .auth-card {
+    @apply w-full max-w-[450px] flex-center flex-col p-8 sm:p-10 rounded-3xl 
+           bg-dark-2 border border-dark-4 shadow-xl;
+  }
+  
+  .auth-form {
+    @apply flex flex-col gap-5 w-full;
+  }
+
+  .input-with-icon {
+    @apply relative flex items-center;
+  }
+
+  .input-icon {
+    @apply absolute left-3 top-1/2 -translate-y-1/2 text-light-3 pointer-events-none;
+  }
+  .input-action-icon {
+    @apply absolute right-3 top-1/2 -translate-y-1/2 text-light-3 
+           hover:text-light-2 transition-colors cursor-pointer;
+  }
+
   /* SHADCN COMPONENTS */
   .shad-form_label {
     @apply text-light-1 !important;
@@ -148,6 +175,8 @@
   .shadow-medium-blue {
     @apply shadow-[0_4px_25px_rgba(58,129,242,0.15)];
   }
+  /* AUTH FORM  */
+  
 
   /* CUSTOM SCROLLBAR */
   .custom-scrollbar::-webkit-scrollbar {
@@ -288,9 +317,15 @@
   50% { transform: scale(1.2); }
 }
 
-@keyframes fade-in {
-  from { opacity: 0; transform: translate(-50%, 10px); }
-  to { opacity: 1; transform: translate(-50%, 0); }
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @layer utilities {
