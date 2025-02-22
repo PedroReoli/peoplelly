@@ -10,7 +10,7 @@ type ProfileUploaderProps = {
 }
 
 const ProfileUploader = ({ fieldChange, mediaUrl }: ProfileUploaderProps) => {
-  const [file, setFile] = useState<File[]>([])
+  const [, setFile] = useState<File[]>([])
   const [fileUrl, setFileUrl] = useState<string>(mediaUrl)
   const [isHovered, setIsHovered] = useState(false)
 
