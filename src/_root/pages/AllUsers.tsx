@@ -53,7 +53,7 @@ const AllUsers = () => {
             <Input
               type="text"
               icon={<MagnifyingGlass size={24} />}
-              placeholder="Encontre pessoas interessantes..."
+              placeholder="Pesquisar usuários"
               value={termoPesquisa}
               onChange={(e) => setTermoPesquisa(e.target.value)}
               wrapperClassName="shadow-xl"
