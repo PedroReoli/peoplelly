@@ -281,4 +281,25 @@
   .card-3d:hover {
     @apply transform-gpu scale-105;
   }
+  /* ANIMATIONS */
+/* Adicione ou atualize estas animações no seu globals.css */
+@keyframes like {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; transform: translate(-50%, 10px); }
+  to { opacity: 1; transform: translate(-50%, 0); }
+}
+
+@layer utilities {
+  .animate-like {
+    animation: like 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .animate-fade-in {
+    animation: fade-in 0.2s ease-out forwards;
+  }
+}
 }

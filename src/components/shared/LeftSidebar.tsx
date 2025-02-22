@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button"
 import { useSignOutAccount } from "@/lib/react-query/queries"
 import { useUserContext, INITIAL_USER } from "@/context/AuthContext"
 import { sidebarLinks } from "@/constants"
-import Loader from "./Loader"
+import ProfileCard from "./ProfileCard"
 
 const LeftSidebar = () => {
   const navigate = useNavigate()
@@ -21,10 +21,10 @@ const LeftSidebar = () => {
   }
 
   return (
-    <nav className="leftsidebar">
-      <div className="flex-1">
-        {/* Logo com Card */}
-        <div className="mx-6 mt-6 mb-8">
+    <nav className="hidden md:flex flex-col justify-between h-screen bg-dark-2 w-[280px] relative">
+      <div className="flex-1 flex flex-col overflow-y-auto custom-scrollbar">
+        {/* Logo */}
+        <div className="px-6 py-6">
           <div className="rounded-2xl bg-dark-3 p-4 shadow-soft-blue">
             <Link to="/" className="flex items-center justify-center">
               <img
@@ -38,36 +38,25 @@ const LeftSidebar = () => {
           </div>
         </div>
 
-        {/* Perfil Card */}
-        {isLoading ? (
-          <div className="px-8 py-6">
-            <Loader />
-          </div>
-        ) : (
-          <Link
-            to={`/profile/${user.id}`}
-            className="mx-6 mb-10 flex items-center gap-4 rounded-2xl bg-dark-3 p-5 transition-all hover:shadow-soft-blue"
-          >
-            <img
-              src={user.imageUrl || "/assets/icons/profile-placeholder.svg"}
-              alt="profile"
-              className="h-14 w-14 rounded-full object-cover"
-            />
-            <div className="flex-1">
-              <p className="h3-bold text-light-1">{user.name}</p>
-              <p className="base-regular text-light-3">@{user.username}</p>
-            </div>
-          </Link>
-        )}
+        {/* Profile Card */}
+        <div className="px-6 mb-8">
+          <ProfileCard
+            id={user.id}
+            name={user.name}
+            username={user.username}
+            imageUrl={user.imageUrl}
+            isLoading={isLoading}
+          />
+        </div>
 
         {/* Navigation Links */}
-        <ul className="px-6">
+        <ul className="px-6 flex-1 space-y-4">
           {sidebarLinks.map((link) => {
             const isActive = pathname === link.route
             const Icon = link.icon
 
             return (
-              <li key={link.label} className="mb-4">
+              <li key={link.label}>
                 <NavLink
                   to={link.route}
                   className={`flex items-center gap-4 rounded-xl p-5 transition-all ${
@@ -77,11 +66,11 @@ const LeftSidebar = () => {
                   }`}
                 >
                   <Icon 
-                    size={26} 
+                    size={28} 
                     weight={isActive ? "fill" : "regular"} 
                     className={isActive ? "text-light-1" : "text-primary-500"}
                   />
-                  <span className="h3-bold">{link.label}</span>
+                  <span className="h3-bold text-[18px]">{link.label}</span>
                 </NavLink>
               </li>
             )
@@ -90,17 +79,19 @@ const LeftSidebar = () => {
       </div>
 
       {/* Logout Button */}
-      <Button
-        variant="ghost"
-        onClick={handleSignOut}
-        className="mx-6 mb-8 flex items-center gap-4 rounded-xl p-5 hover:bg-red-500/10"
-      >
-        <SignOut 
-          size={26} 
-          className="text-primary-500"
-        />
-        <span className="h3-bold text-light-1">Sair</span>
-      </Button>
+      <div className="px-6 py-6 border-t border-dark-4">
+        <Button
+          variant="ghost"
+          onClick={handleSignOut}
+          className="w-full flex items-center gap-4 rounded-xl p-5 hover:bg-red-500/10"
+        >
+          <SignOut 
+            size={28} 
+            className="text-primary-500"
+          />
+          <span className="h3-bold text-[18px] text-light-1">Sair</span>
+        </Button>
+      </div>
     </nav>
   )
 }

@@ -15,14 +15,14 @@ export function formatDateString(dateString: string) {
   };
 
   const date = new Date(dateString);
-  const formattedDate = date.toLocaleDateString("en-US", options);
+  const formattedDate = date.toLocaleDateString("pt-BR", options); // Alterado para português
 
   const time = date.toLocaleTimeString([], {
     hour: "numeric",
     minute: "2-digit",
   });
 
-  return `${formattedDate} at ${time}`;
+  return `${formattedDate} às ${time}`; // Alterado "at" para "às"
 }
 
 // 
@@ -41,15 +41,15 @@ export const multiFormatDateString = (timestamp: string = ""): string => {
     case Math.floor(diffInDays) >= 30:
       return formatDateString(timestamp);
     case Math.floor(diffInDays) === 1:
-      return `${Math.floor(diffInDays)} day ago`;
+      return `Há ${Math.floor(diffInDays)} dia`;
     case Math.floor(diffInDays) > 1 && diffInDays < 30:
-      return `${Math.floor(diffInDays)} days ago`;
+      return `Há ${Math.floor(diffInDays)} dias`;
     case Math.floor(diffInHours) >= 1:
-      return `${Math.floor(diffInHours)} hours ago`;
+      return `Há ${Math.floor(diffInHours)} horas`;
     case Math.floor(diffInMinutes) >= 1:
-      return `${Math.floor(diffInMinutes)} minutes ago`;
+      return `Há ${Math.floor(diffInMinutes)} minutos`;
     default:
-      return "Just now";
+      return "Agora mesmo"; // Alterado "Just now" para "Agora mesmo"
   }
 };
 

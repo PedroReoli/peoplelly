@@ -1,13 +1,9 @@
+import { CircleNotch } from "@phosphor-icons/react"
+
 const Loader = () => (
   <div className="flex-center w-full">
-    <img
-      src="/assets/icons/loader.svg"
-      alt="loader"
-      width={24}
-      height={24}
-      className="animate-spin"
-    />
+    <CircleNotch size={28} className="text-primary-500 animate-spin" />
   </div>
-);
+)
 
-export default Loader;
+export default Loader

@@ -35,6 +35,26 @@ export async function createUserAccount(user: INewUser) {
   }
 }
 
+// ============================== User is Online
+//
+export async function updateUserOnlineStatus(userId: string, isOnline: boolean) {
+  try {
+    const updatedUser = await databases.updateDocument(
+      appwriteConfig.databaseId,
+      appwriteConfig.userCollectionId,
+      userId,
+      {
+        isOnline,
+        lastSeen: new Date().toISOString(),
+      }
+    )
+
+    return updatedUser
+  } catch (error) {
+    console.error("Error updating user online status:", error)
+    return null
+  }
+}
 // ============================== SAVE USER TO DB
 export async function saveUserToDB(user: {
   accountId: string;
@@ -551,4 +571,5 @@ export async function updateUser(user: IUpdateUser) {
   } catch (error) {
     console.log(error);
   }
+
 }
