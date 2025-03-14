@@ -38,7 +38,7 @@ const ResetPasswordForm = () => {
   const [showPassword, setShowPassword] = useState(false)
   const [recoveryData, setRecoveryData] = useState<{ userId: string; secret: string } | null>(null)
 
-  const { mutateAsync: signInAccount } = useSignInAccount()
+  useSignInAccount()
 
   const form = useForm<z.infer<typeof ResetPasswordSchema>>({
     resolver: zodResolver(ResetPasswordSchema),
