@@ -82,7 +82,7 @@ const SigninForm = () => {
         <div className="auth-card">
           {/* Logo */}
           <img 
-            src="/assets/icons/logo-form.svg" 
+            src="/assets/images/logo.svg" 
             alt="logo" 
             className="w-48 md:w-64 mb-8 animate-fadeIn" 
           />

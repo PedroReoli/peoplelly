@@ -22,7 +22,7 @@ const Topbar = () => {
           <div className="bg-dark-3 rounded-xl p-2.5 shadow-soft-blue transition-shadow hover:shadow-medium-blue">
             <Link to="/" className="flex items-center justify-center">
               <img
-                src="/assets/icons/logo-form.svg"
+                src="/assets/images/logo.svg"
                 alt="logo"
                 className="h-8 w-auto object-contain min-w-[120px]"
               />

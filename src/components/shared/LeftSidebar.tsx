@@ -28,7 +28,7 @@ const LeftSidebar = () => {
           <div className="rounded-2xl bg-dark-3 p-4 shadow-soft-blue">
             <Link to="/" className="flex items-center justify-center">
               <img
-                src="/assets/icons/logo-form.svg"
+                src="/assets/images/logo.svg"
                 alt="logo"
                 width={180}
                 height={40}
